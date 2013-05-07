@@ -1,0 +1,104 @@
+/* General Demo Style */
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700|Satisfy);
+
+@font-face {
+	font-family: 'codropsicons';
+	src:url('../fonts/codropsicons/codropsicons.eot');
+	src:url('../fonts/codropsicons/codropsicons.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/codropsicons/codropsicons.woff') format('woff'),
+		url('../fonts/codropsicons/codropsicons.ttf') format('truetype'),
+		url('../fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+*, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+body, html { font-size: 100%; padding: 0; margin: 0;}
+
+/* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
+.clearfix:before, .clearfix:after { content: " "; display: table; }
+.clearfix:after { clear: both; }
+
+body {
+	font-family: 'Lato', Calibri, Arial, sans-serif;
+	color: #fff;
+	background: #333;
+	overflow: hidden;
+}
+
+a {
+	color: #ddd;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #fff;
+}
+
+/* Header Style */
+.codrops-top {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.1);
+	text-transform: uppercase;
+	position: fixed;
+	width: 100%;
+	font-size: 0.68em;
+	line-height: 2.2;
+	z-index: 50000;
+	top: 0;
+	left: 0;
+}
+
+.codrops-top a {
+	padding: 0 1em;
+	letter-spacing: 0.1em;
+	color: #fff;
+	display: inline-block;
+}
+
+.codrops-top a:hover {
+	background: rgba(255,255,255,0.2);
+}
+
+.codrops-top span.right {
+	float: right;
+}
+
+.codrops-top span.right a {
+	float: left;
+	display: block;
+}
+
+.codrops-icon:before {
+	font-family: 'codropsicons';
+	margin: 0 4px;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+.codrops-icon-drop:before {
+	content: "\e001";
+}
+.codrops-icon-prev:before {
+	content: "\e004";
+}
+.codrops-icon-archive:before {
+	content: "\e002";
+}
+.codrops-icon-next:before {
+	content: "\e000";
+}
+.codrops-icon-about:before {
+	content: "\e003";
+}
+
+@media screen and (max-width: 25em) { 
+	.codrops-icon span {
+		display: none;
+	}
+}
+
