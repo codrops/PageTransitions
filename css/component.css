@@ -7,9 +7,6 @@ html, body { height: 100%; }
 	-webkit-perspective: 1200px;
 	-moz-perspective: 1200px;
 	perspective: 1200px;
-	-webkit-transform-style: preserve-3d;
-	-moz-transform-style: preserve-3d;
-	transform-style: preserve-3d;
 }
 
 .pt-page {
@@ -26,11 +23,15 @@ html, body { height: 100%; }
 	-webkit-transform: translate3d(0, 0, 0);
 	-moz-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
 }
 
 .pt-page-current,
 .no-js .pt-page {
 	visibility: visible;
+	z-index: 1;
 }
 
 .no-js body {

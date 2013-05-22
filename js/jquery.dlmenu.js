@@ -1,5 +1,5 @@
 /**
- * jquery.dlmenu.js v1.0.0
+ * jquery.dlmenu.js v1.0.1
  * http://www.codrops.com
  *
  * Licensed under the MIT license.
@@ -23,7 +23,7 @@
 	// the options
 	$.DLMenu.defaults = {
 		// classes for the animation effects
-		animationClasses : { in : 'dl-animate-in-1', out : 'dl-animate-out-1' },
+		animationClasses : { classin : 'dl-animate-in-1', classout : 'dl-animate-out-1' },
 		// callback: click a link that has a sub menu
 		// el is the link element (li); name is the level name
 		onLevelClick : function( el, name ) { return false; },
@@ -66,9 +66,10 @@
 		},
 		_config : function() {
 			this.open = false;
-			this.$trigger = this.$el.children( 'button' );
+			this.$trigger = this.$el.children( '.dl-trigger' );
 			this.$menu = this.$el.children( 'ul.dl-menu' );
 			this.$menuitems = this.$menu.find( 'li:not(.dl-back)' );
+			this.$el.find( 'ul.dl-submenu' ).prepend( '<li class="dl-back"><a href="#">back</a></li>' );
 			this.$back = this.$menu.find( 'li.dl-back' );
 		},
 		_initEvents : function() {
@@ -82,11 +83,6 @@
 				} 
 				else {
 					self._openMenu();
-					// clicking somewhere else makes the menu close
-					$body.off( 'click' ).on( 'click.dlmenu', function() {
-						self._closeMenu() ;
-					} );
-					
 				}
 				return false;
 
@@ -101,23 +97,25 @@
 
 				if( $submenu.length > 0 ) {
 
-					var $flyin = $submenu.clone().insertAfter( self.$menu ).addClass( self.options.animationClasses.in ),
+					var $flyin = $submenu.clone().css( 'opacity', 0 ).insertAfter( self.$menu ),
 						onAnimationEndFn = function() {
-							self.$menu.off( self.animEndEventName ).removeClass( self.options.animationClasses.out ).addClass( 'dl-subview' );
+							self.$menu.off( self.animEndEventName ).removeClass( self.options.animationClasses.classout ).addClass( 'dl-subview' );
 							$item.addClass( 'dl-subviewopen' ).parents( '.dl-subviewopen:first' ).removeClass( 'dl-subviewopen' ).addClass( 'dl-subview' );
 							$flyin.remove();
 						};
 
-					self.$menu.addClass( self.options.animationClasses.out );
+					setTimeout( function() {
+						$flyin.addClass( self.options.animationClasses.classin );
+						self.$menu.addClass( self.options.animationClasses.classout );
+						if( self.supportAnimations ) {
+							self.$menu.on( self.animEndEventName, onAnimationEndFn );
+						}
+						else {
+							onAnimationEndFn.call();
+						}
 
-					if( self.supportAnimations ) {
-						self.$menu.on( self.animEndEventName, onAnimationEndFn );
-					}
-					else {
-						onAnimationEndFn.call();
-					}
-
-					self.options.onLevelClick( $item, $item.children( 'a:first' ).text() );
+						self.options.onLevelClick( $item, $item.children( 'a:first' ).text() );
+					} );
 
 					return false;
 
@@ -134,35 +132,41 @@
 					$submenu = $this.parents( 'ul.dl-submenu:first' ),
 					$item = $submenu.parent(),
 
-
-					$flyin = $submenu.clone().insertAfter( self.$menu ).addClass( self.options.animationClasses.out );
+					$flyin = $submenu.clone().insertAfter( self.$menu );
 
 				var onAnimationEndFn = function() {
-					self.$menu.off( self.animEndEventName ).removeClass( self.options.animationClasses.in );
+					self.$menu.off( self.animEndEventName ).removeClass( self.options.animationClasses.classin );
 					$flyin.remove();
 				};
 
-				self.$menu.addClass( self.options.animationClasses.in );
+				setTimeout( function() {
+					$flyin.addClass( self.options.animationClasses.classout );
+					self.$menu.addClass( self.options.animationClasses.classin );
+					if( self.supportAnimations ) {
+						self.$menu.on( self.animEndEventName, onAnimationEndFn );
+					}
+					else {
+						onAnimationEndFn.call();
+					}
 
-				if( self.supportAnimations ) {
-					self.$menu.on( self.animEndEventName, onAnimationEndFn );
-				}
-				else {
-					onAnimationEndFn.call();
-				}
-
-				$item.removeClass( 'dl-subviewopen' );
-				
-				var $subview = $this.parents( '.dl-subview:first' );
-				if( $subview.is( 'li' ) ) {
-					$subview.addClass( 'dl-subviewopen' );
-				}
-				$subview.removeClass( 'dl-subview' );
+					$item.removeClass( 'dl-subviewopen' );
+					
+					var $subview = $this.parents( '.dl-subview:first' );
+					if( $subview.is( 'li' ) ) {
+						$subview.addClass( 'dl-subviewopen' );
+					}
+					$subview.removeClass( 'dl-subview' );
+				} );
 
 				return false;
 
 			} );
 			
+		},
+		closeMenu : function() {
+			if( this.open ) {
+				this._closeMenu();
+			}
 		},
 		_closeMenu : function() {
 			var self = this,
@@ -184,7 +188,17 @@
 
 			this.open = false;
 		},
+		openMenu : function() {
+			if( !this.open ) {
+				this._openMenu();
+			}
+		},
 		_openMenu : function() {
+			var self = this;
+			// clicking somewhere else makes the menu close
+			$body.off( 'click' ).on( 'click.dlmenu', function() {
+				self._closeMenu() ;
+			} );
 			this.$menu.addClass( 'dl-menuopen dl-menu-toggle' ).on( this.transEndEventName, function() {
 				$( this ).removeClass( 'dl-menu-toggle' );
 			} );
