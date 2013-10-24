@@ -50,7 +50,8 @@ var PageTransitions = (function() {
 
 	}
 
-	function nextPage( animation ) {
+	function nextPage(options ) {
+		var animation = (options.animation) ? options.animation : options;
 
 		if( isAnimating ) {
 			return false;
@@ -60,11 +61,21 @@ var PageTransitions = (function() {
 		
 		var $currPage = $pages.eq( current );
 
-		if( current < pagesCount - 1 ) {
-			++current;
+		if(options.showPage){
+			if( options.showPage < pagesCount - 1 ) {
+				current = options.showPage;
+			}
+			else {
+				current = 0;
+			}
 		}
-		else {
-			current = 0;
+		else{
+			if( current < pagesCount - 1 ) {
+				++current;
+			}
+			else {
+				current = 0;
+			}
 		}
 
 		var $nextPage = $pages.eq( current ).addClass( 'pt-page-current' ),
@@ -379,6 +390,9 @@ var PageTransitions = (function() {
 
 	init();
 
-	return { init : init };
+	return { 
+		init : init,
+		nextPage : nextPage,
+	};
 
 })();
