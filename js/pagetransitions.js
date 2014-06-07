@@ -18,8 +18,21 @@ var PageTransitions = (function() {
 		// animation end event name
 		animEndEventName = animEndEventNames[ Modernizr.prefixed( 'animation' ) ],
 		// support css animations
-		support = Modernizr.cssanimations;
-	
+		support = Modernizr.cssanimations,
+        animations = {
+            max: 67
+        },
+        keys = {
+            BACKSPACE: 8,
+            DOWN: 40,
+            ENTER: 13,
+            LEFT: 37,
+            RIGHT: 39,
+            SPACE: 32,
+            PAGE_DOWN: 34,
+            PAGE_UP: 33
+        };
+
 	function init() {
 
 		$pages.each( function() {
@@ -37,16 +50,37 @@ var PageTransitions = (function() {
 			}
 		} );
 
-		$iterate.on( 'click', function() {
-			if( isAnimating ) {
-				return false;
-			}
-			if( animcursor > 67 ) {
-				animcursor = 1;
-			}
-			nextPage( animcursor );
-			++animcursor;
-		} );
+        var animcursorCheck = function() {
+            if( isAnimating ) {
+                return false;
+            }
+            if( animcursor > animations.max ) {
+                animcursor = 1;
+            }
+            else if (animcursor < 1) {
+                animcursor = animations.max
+            }
+            return animcursor;
+        };
+
+        $( "body" ).keyup(function(event) {
+            var key = event.which,
+                animation = $( '#dl-menu' ).data().dlmenu.$el.data( 'animation' );
+
+            if ( key == keys.RIGHT || key == keys.SPACE || key == keys.ENTER || key == keys.DOWN || key == keys.PAGE_DOWN ) {
+                nextPage( animcursorCheck() );
+                ++animcursor;
+            }
+            if ( key == keys.LEFT || key == keys.BACKSPACE || key == keys.PAGE_UP ) {
+                --animcursor;
+                nextPage( animcursorCheck() );
+            }
+        });
+
+        $iterate.on( 'click', function() {
+            nextPage( animcursorCheck() );
+            ++animcursor;
+        } );
 
 	}
 
@@ -58,7 +92,7 @@ var PageTransitions = (function() {
 		}
 
 		isAnimating = true;
-		
+
 		var $currPage = $pages.eq( current );
 
 		if(options.showPage){
@@ -390,9 +424,9 @@ var PageTransitions = (function() {
 
 	init();
 
-	return { 
+	return {
 		init : init,
-		nextPage : nextPage,
+		nextPage : nextPage
 	};
 
 })();
