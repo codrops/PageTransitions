@@ -95,7 +95,7 @@ var PageTransitions = (function() {
 
 		var $currPage = $pages.eq( current );
 
-		if(options.showPage){
+		if(typeof options.showPage != 'undefined'){
 			if( options.showPage < pagesCount - 1 ) {
 				current = options.showPage;
 			}
