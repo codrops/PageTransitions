@@ -35,6 +35,11 @@ a:hover {
 	color: #fff;
 }
 
+button:hover, .dl-trigger:hover{
+	color : #b7b7b7;
+	background-color:#eaeff7;
+}
+
 /* Header Style */
 .codrops-top {
 	background: #fff;
