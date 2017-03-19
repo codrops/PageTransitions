@@ -385,6 +385,22 @@ var PageTransitions = (function() {
 				outClass = 'pt-page-rotateSlideOut';
 				inClass = 'pt-page-rotateSlideIn';
 				break;
+			case 68:
+				outClass = 'pt-page-moveToLeft';
+				inClass = 'pt-page-moveFromRightEasing';
+				break;
+			case 69:
+				outClass = 'pt-page-moveToRight';
+				inClass = 'pt-page-moveFromLeftEasing';
+				break;
+			case 70:
+				outClass = 'pt-page-moveToTop';
+				inClass = 'pt-page-moveFromBottomEasing';
+				break;
+			case 71:
+				outClass = 'pt-page-moveToBottom';
+				inClass = 'pt-page-moveFromTopEasing';
+				break;
 
 		}
 

@@ -97,17 +97,33 @@
 	-webkit-animation: moveToLeft .7s ease-in-out both;
 	animation: moveToLeft .7s ease-in-out both;
 }
+.pt-page-moveFromLeftEasing {
+	-webkit-animation: moveFromLeft .7s ease-in-out both;
+	animation: moveFromLeft .7s ease-in-out both;
+}
 .pt-page-moveToRightEasing {
 	-webkit-animation: moveToRight .7s ease-in-out both;
 	animation: moveToRight .7s ease-in-out both;
+}
+.pt-page-moveFromRightEasing {
+	-webkit-animation: moveFromRight .7s ease-in-out both;
+	animation: moveFromRight .7s ease-in-out both;
 }
 .pt-page-moveToTopEasing {
 	-webkit-animation: moveToTop .7s ease-in-out both;
 	animation: moveToTop .7s ease-in-out both;
 }
+.pt-page-moveFromTopEasing {
+	-webkit-animation: moveFromTop .7s ease-in-out both;
+	animation: moveFromTop .7s ease-in-out both;
+}
 .pt-page-moveToBottomEasing {
 	-webkit-animation: moveToBottom .7s ease-in-out both;
 	animation: moveToBottom .7s ease-in-out both;
+}
+.pt-page-moveFromBottomEasing {
+	-webkit-animation: moveFromBottom .7s ease-in-out both;
+	animation: moveFromBottom .7s ease-in-out both;
 }
 
 /********************************* keyframes **************************************/
