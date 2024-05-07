@@ -107,3 +107,29 @@ button:hover, .dl-trigger:hover{
 	}
 }
 
+/* Estilo da barra de rolagem */
+::-webkit-scrollbar {
+	width: 12px; /* Largura da barra de rolagem */
+  }
+  
+  /* Estilo da pista (track) da barra de rolagem */
+  ::-webkit-scrollbar-track {
+	background: #f1f1f1; /* Cor de fundo da pista */
+  }
+  
+  /* Estilo do polegar (thumb) da barra de rolagem */
+  ::-webkit-scrollbar-thumb {
+	background: #888; /* Cor do polegar */
+	border-radius: 6px; /* Borda arredondada do polegar */
+  }
+  
+  /* Estilo do canto da barra de rolagem (apenas para o WebKit) */
+  ::-webkit-scrollbar-corner {
+	background: transparent; /* Cor do canto */
+  }
+  
+  /* Estilo do redimensionador da barra de rolagem (apenas para o WebKit) */
+  ::-webkit-resizer {
+	background: #f1f1f1; /* Cor do redimensionador */
+  }
+  
